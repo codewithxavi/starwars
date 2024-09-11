@@ -1,11 +1,12 @@
+/** @type {import('next').NextConfig} */
+const isProd = process.env.NODE_ENV === "production";
 const nextConfig = {
     images: {
         domains: ['starwars-visualguide.com'],
     },
-    basePath: '/starwars',
-    assetPrefix: '/starwars/',
+    basePath: isProd ? "/starwars" : "",
     trailingSlash: true,
-    output: 'export', // Add this line
+    output: 'export', // Asegúrate de tener esta línea
 }
 
 export default nextConfig
