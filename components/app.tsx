@@ -184,7 +184,7 @@ export function App() {
         <h1 className="text-3xl font-bold mb-4">
 
           <Image
-              src="/starwars-logo.webp"
+              src={`${process.env.NODE_ENV === "production" ? "/starwars" : ""}/starwars-logo.webp`}
               alt="Star Wars Logo"
               width={150}
               height={150}
