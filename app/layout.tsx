@@ -24,12 +24,20 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en">
-      <body
-        className={`${geistSans.variable} ${geistMono.variable} antialiased`}
-      >
+      <html lang="en">
+      <body className={`${geistSans.variable} ${geistMono.variable} antialiased flex flex-col min-h-screen`}>
+      <div className="flex-grow">
         {children}
+      </div>
+      <footer className="text-center p-4 text-gray-300 border-t border-gray-700">
+        <p className="text-sm">
+          Made with <span className="text-red-500">❤️</span> by <a href="https://github.com/codewithxavi"
+                                                                   className="text-blue-400 hover:underline">@codewithxavi</a>,
+          developed with <span className="text-blue-400">Next.js</span> & <span
+            className="text-blue-400">Tailwind CSS</span>
+        </p>
+      </footer>
       </body>
-    </html>
+      </html>
   );
 }

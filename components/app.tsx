@@ -180,7 +180,18 @@ export function App() {
 
   return (
       <div className="container mx-auto p-4 max-w-6xl">
-        <h1 className="text-3xl font-bold mb-4">Star Wars Info ⚫🤖⚔️</h1>
+
+        <h1 className="text-3xl font-bold mb-4">
+
+          <Image
+              src="/starwars-logo.webp"
+              alt="Star Wars Logo"
+              width={150}
+              height={150}
+              className="mb-4  inline"
+          />
+
+          🟡🤖⚔️</h1>
         <div className="mb-4 flex">
           <Input
               type="text"
@@ -190,23 +201,24 @@ export function App() {
               className="mr-2"
           />
           <Button onClick={handleSearch} disabled={isLoading}>
-            <Search />
+            <Search/>
           </Button>
         </div>
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-16 h-full">
-          <div className="h-full">
-            <h2 className="text-2xl font-bold mb-4">Characters</h2>
+        <div
+            className="grid grid-cols-1 md:grid-cols-2 gap-4 md:gap-16 max-h-full h-[calc(100vh-2rem)] md:h-[calc(100vh-6rem)]">
+          <div className="h-full flex flex-col">
+            <h2 className="text-xl md:text-2xl font-bold mb-2 md:mb-4">Characters</h2>
             {isLoading ? (
                 <div className="flex justify-center items-center h-32">
                   <Loader className="h-8 w-8 animate-spin text-accent"/>
                 </div>
             ) : (
-                <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
+                <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 md:gap-6">
                   {characters.slice(0, visibleCharacters).map((character) => (
                       <Button
                           key={character.url}
                           onClick={() => handleCharacterClick(character)}
-                          className={`group ${selectedCharacter?.url === character.url ? 'bg-yellow-400 text-white' : ''}`}
+                          className={`group ${selectedCharacter?.url === character.url ? 'bg-yellow-400 text-slate-900' : ''}`}
                       >
                         <div className="col-span-2">
                           <p className="font-bold group-hover:text-yellow-400">{character.name}</p>
@@ -215,15 +227,15 @@ export function App() {
                   ))}
                 </div>
             )}
-            <div className="flex justify-between mt-4">
+            <div className="flex flex-grow justify-between mt-4">
               <Button onClick={handlePrevPage} disabled={!prevPage || isLoading}>
-                <ChevronLeft />
+                <ChevronLeft/>
               </Button>
-              <div className="flex items-center justify-center text-4xl font-bold">
+              <div className="flex items-center justify-center text-2xl md:text-7xl font-bold">
                 {renderStarWarsText(currentPage)}
               </div>
               <Button onClick={handleNextPage} disabled={!nextPage || isLoading}>
-                <ChevronRight />
+                <ChevronRight/>
               </Button>
             </div>
           </div>
@@ -231,37 +243,38 @@ export function App() {
             {selectedCharacter && (
                 <Card className="border-none h-full w-full bg-transparent relative">
                   <CardHeader>
-                    <CardTitle>{selectedCharacter.name}</CardTitle>
+                    <CardTitle className="text-lg md:text-xl">{selectedCharacter.name}</CardTitle>
                   </CardHeader>
-                  <CardContent className="h-96 transition-all duration-500 ease-in-out">
+                  <CardContent className="transition-all duration-500 ease-in-out">
                     <Image
                         src={getImageUrl(selectedCharacter.url)}
                         alt={selectedCharacter.name}
                         fill
                         sizes="(max-width: 768px) 100vw, 50vw"
-                        style={{ objectFit: 'contain' }}
-                        className="absolute inset-0 transition-opacity duration-500 ease-in-out"
+                        style={{objectFit: 'cover', objectPosition: 'top'}}
+                        className="absolute inset-0 w-full h-full transition-opacity duration-500 ease-in-out rounded-lg"
                         loading="lazy"
                     />
-                    <div className="absolute inset-0 bg-black bg-opacity-20 flex flex-col justify-end p-4 text-white">
-                      <p>Height: {selectedCharacter.height} cm</p>
-                      <p>Mass: {selectedCharacter.mass} kg</p>
-                      <p>Hair Color: {selectedCharacter.hair_color}</p>
-                      <p>Skin Color: {selectedCharacter.skin_color}</p>
-                      <p>Eye Color: {selectedCharacter.eye_color}</p>
-                      <p>Birth Year: {selectedCharacter.birth_year}</p>
-                      <p>Gender: {selectedCharacter.gender}</p>
+                    <div
+                        className="absolute inset-0 bg-black bg-opacity-20 flex flex-col justify-end p-2 md:p-4 text-white">
+                      <p className="mb-1">Height: {selectedCharacter.height} cm</p>
+                      <p className="mb-1">Mass: {selectedCharacter.mass} kg</p>
+                      <p className="mb-1">Hair Color: {selectedCharacter.hair_color}</p>
+                      <p className="mb-1">Skin Color: {selectedCharacter.skin_color}</p>
+                      <p className="mb-1">Eye Color: {selectedCharacter.eye_color}</p>
+                      <p className="mb-1">Birth Year: {selectedCharacter.birth_year}</p>
+                      <p className="mb-1">Gender: {selectedCharacter.gender}</p>
                       {details.films.length > 0 && (
-                          <p>Films: {details.films.map((film: Film) => film.title).join(', ')}</p>
+                          <p className="mb-1">Films: {details.films.map((film: Film) => film.title).join(', ')}</p>
                       )}
                       {details.vehicles.length > 0 && (
-                          <p>Vehicles: {details.vehicles.map((vehicle: Vehicle) => vehicle.name).join(', ')}</p>
+                          <p className="mb-1">Vehicles: {details.vehicles.map((vehicle: Vehicle) => vehicle.name).join(', ')}</p>
                       )}
                       {details.starships.length > 0 && (
-                          <p>Starships: {details.starships.map((starship: Starship) => starship.name).join(', ')}</p>
+                          <p className="mb-1">Starships: {details.starships.map((starship: Starship) => starship.name).join(', ')}</p>
                       )}
                       {details.species.length > 0 && (
-                          <p>Species: {details.species.map((species: Species) => species.name).join(', ')}</p>
+                          <p className="mb-1">Species: {details.species.map((species: Species) => species.name).join(', ')}</p>
                       )}
                     </div>
                   </CardContent>
